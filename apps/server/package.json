@@ -1,0 +1,25 @@
+{
+  "name": "@repo/server",
+  "type": "module",
+  "scripts": {
+    "start": "npm run build && node dist/app.js",
+    "build": "tsc",
+    "dev": "tsx watch src/app.ts",
+    "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0"
+  },
+  "dependencies": {
+    "@fastify/autoload": "^6.0.0",
+    "@fastify/sensible": "^6.0.0",
+    "fastify": "^5.0.0",
+    "fastify-plugin": "^5.0.0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^24.0.8",
+    "eslint": "^9.39.1",
+    "ts-node": "^10.4.0",
+    "tsx": "^4.21.0",
+    "typescript": "~5.9.2"
+  }
+}
