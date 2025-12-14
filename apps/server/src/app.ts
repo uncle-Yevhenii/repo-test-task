@@ -1,34 +1,37 @@
 import AutoLoad from "@fastify/autoload";
-import Fastify, {
-  FastifyInstance,
-  FastifyReply,
-  FastifyRequest,
-} from "fastify";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import Fastify, { FastifyInstance } from "fastify";
+import { join } from "node:path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+export async function buildApp(): Promise<FastifyInstance> {
+  const app = Fastify({ logger: true });
 
-const server: FastifyInstance = Fastify({ logger: true });
+  void app.register(AutoLoad, {
+    dir: join(__dirname, "plugins"),
+    options: {},
+  });
 
-void server.register(AutoLoad, {
-  dir: join(__dirname, "plugins"),
-  options: {},
-});
+  app.get("/ping", async (request, reply) => {
+    return reply.code(200).send({ pong: "it worked!", host: request.host });
+  });
 
-server.get("/ping", async (request: FastifyRequest, reply: FastifyReply) => {
-  return reply.code(200).send({ pong: "it worked!", host: request.host });
-});
+  return app;
+}
 
-const start = async () => {
+async function start() {
+  const server = await buildApp();
   try {
     await server.ready();
-    await server.listen({ port: Number(process.env["SERVER_PORT"]) || 3000 });
+    await server.listen({
+      port: Number(process.env["SERVER_PORT"]) || 4000,
+      host: "0.0.0.0",
+    });
   } catch (err) {
     server.log.error(err);
     process.exit(1);
   }
-};
+}
 
-void start();
+// Only start the server if this file is run directly
+if (require.main === module) {
+  void start();
+}
