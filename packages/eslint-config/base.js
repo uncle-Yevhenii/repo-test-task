@@ -12,6 +12,21 @@ export const config = [
   js.configs.recommended,
   eslintConfigPrettier,
   ...tseslint.configs.strict,
+
+  // Override unused vars rule to allow "_" prefix
+  {
+    rules: {
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
+    },
+  },
+
   {
     plugins: {
       turbo: turboPlugin,
@@ -20,6 +35,7 @@ export const config = [
       "turbo/no-undeclared-env-vars": "warn",
     },
   },
+
   {
     ignores: ["dist/**"],
   },
