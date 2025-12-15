@@ -1,0 +1,38 @@
+query GetRisks($pagination: PaginationInput, $filter: RiskFilterInput) {
+  risks(pagination: $pagination, filter: $filter) {
+    items {
+      id
+      name
+      description
+      status
+      createdBy
+      category {
+        id
+        name
+      }
+    }
+    pageInfo {
+      total
+      page
+      pageSize
+      hasMore
+    }
+  }
+}
+
+mutation CreateRisk($input: CreateRiskInput!) {
+  createRisk(input: $input) {
+    id
+  }
+}
+
+mutation UpdateRisk($id: ID!, $input: UpdateRiskInput!) {
+  updateRisk(id: $id, input: $input) {
+    id
+    status
+  }
+}
+
+mutation DeleteRisk($id: ID!) {
+  deleteRisk(id: $id)
+}

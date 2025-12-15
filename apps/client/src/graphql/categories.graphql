@@ -1,0 +1,34 @@
+query GetCategories(
+  $pagination: PaginationInput
+  $filter: CategoryFilterInput
+) {
+  categories(pagination: $pagination, filter: $filter) {
+    items {
+      id
+      name
+      description
+      createdBy
+      createdAt
+      updatedAt
+    }
+    pageInfo {
+      total
+      page
+      pageSize
+      hasMore
+    }
+  }
+}
+
+mutation CreateCategory($input: CreateCategoryInput!) {
+  createCategory(input: $input) {
+    id
+    name
+    description
+    createdBy
+  }
+}
+
+mutation DeleteCategory($id: ID!) {
+  deleteCategory(id: $id)
+}

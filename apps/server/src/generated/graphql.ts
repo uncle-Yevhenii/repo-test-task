@@ -154,7 +154,7 @@ export type QueryRisksArgs = {
 
 export type Risk = {
   __typename?: "Risk";
-  category: Category;
+  category?: Maybe<Category>;
   createdAt: Scalars["String"]["output"];
   createdBy: Scalars["String"]["output"];
   description: Scalars["String"]["output"];
@@ -472,7 +472,11 @@ export type RiskResolvers<
   ParentType extends ResolversParentTypes["Risk"] =
     ResolversParentTypes["Risk"],
 > = ResolversObject<{
-  category?: Resolver<ResolversTypes["Category"], ParentType, ContextType>;
+  category?: Resolver<
+    Maybe<ResolversTypes["Category"]>,
+    ParentType,
+    ContextType
+  >;
   createdAt?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   createdBy?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   description?: Resolver<ResolversTypes["String"], ParentType, ContextType>;

@@ -36,14 +36,18 @@ export const resolvers: Resolvers = {
 
   Risk: {
     category: async (parent, _, context) => {
+      // If the parent risk has no category, return null immediately.
+      if (!parent.category) {
+        return null;
+      }
       const category = await context.loaders.categoryLoader.load(
         parent.category.toString()
       );
 
-      if (!category) {
-        throw new Error(
-          `Critical: Category with ID ${parent.category} not found for risk ${parent._id}`
-        );
+      // The dataloader might return an Error object or null if not found.
+      // Returning null is more graceful than throwing.
+      if (!category || category instanceof Error) {
+        return null;
       }
       return category;
     },
