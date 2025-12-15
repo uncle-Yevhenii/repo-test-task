@@ -13,7 +13,7 @@ export const typeDefs = gql`
     name: String!
     description: String!
     status: RiskStatusEnum!
-    category: Category!
+    category: Category
     createdBy: String!
     createdAt: String!
     updatedAt: String!

@@ -25,7 +25,6 @@ const riskSchema = new Schema<IRiskDocument>(
     category: {
       type: Schema.Types.ObjectId,
       ref: "Category",
-      required: true,
       index: true,
     },
     status: {
@@ -57,7 +56,7 @@ export function toRiskDTO(doc: IRiskDocument): IRisk & { id: string } {
     id: doc._id.toString(),
     name: doc.name,
     description: doc.description,
-    categoryId: doc.category.toString(),
+    categoryId: doc.category?.toString() || null,
     status: doc.status,
     createdBy: doc.createdBy,
   };

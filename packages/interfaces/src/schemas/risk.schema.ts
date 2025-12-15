@@ -8,7 +8,7 @@ export enum RiskStatusEnum {
 export interface IRisk {
   name: string;
   description: string;
-  categoryId: string;
+  categoryId: string | null;
   status: RiskStatusEnum;
   createdBy: string;
 }
